@@ -19,16 +19,16 @@ class TaskVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tasks = repository.getAll()
+        tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         repository = LocalTaskRepository()
         tasks = repository.getAll()
         
         title = "TASKS"
-        
+    
         registerCell()
         
         let addBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPressed))
@@ -46,8 +46,9 @@ class TaskVC: UIViewController {
     }
     
     internal func registerCell(){
-        let nib = UINib(nibName: "TaskCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "TaskCell")
+        let identifier = "TaskCell"
+        let nib = UINib(nibName: identifier, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: identifier)
     }
 }
 
@@ -59,6 +60,11 @@ extension TaskVC : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tasks.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tasks[indexPath.row].isDone = !tasks[indexPath.row].isDone
+        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
