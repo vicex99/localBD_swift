@@ -13,11 +13,13 @@ class AddViewController: UIViewController {
     @IBOutlet weak var txtNew: UITextField!
     internal weak var repository: LocalTaskRepository!
     
+    convenience init(_ repository:LocalTaskRepository!){
+        self.init()
+        self.repository = repository
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        repository = LocalTaskRepository()
         
     }
 
@@ -30,10 +32,10 @@ class AddViewController: UIViewController {
         task.id  = UUID().uuidString
         task.toDo = txtNew.text!
         task.isDone = false
-        
+        repository.create(a: task)
         // volver a atrás
-        if repository.create(a: task) {
+//        if  {
             navigationController?.popViewController(animated: true)
-        }
+//        }
      }
 }

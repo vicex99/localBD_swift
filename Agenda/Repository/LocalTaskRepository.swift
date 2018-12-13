@@ -35,8 +35,9 @@ class LocalTaskRepository: Repository{
     
     func create(a: Task) -> Bool{
         do {
-            let realm = try Realm()
-            let entity = TaskEntity(value: a)
+            let realm = try! Realm()
+            let entity = TaskEntity(id: a.id, toDo: a.toDo, isDone: a.isDone)
+            
             try realm.write {
                 realm.add(entity, update: true)
             }

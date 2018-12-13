@@ -21,10 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         if let window = window {
-            let taskVC = TaskVC()
-            let navController = UINavigationController(rootViewController: taskVC)
+            let taskVContr = TaskVC()
+            let navController = UINavigationController(rootViewController: taskVContr)
             window.rootViewController = navController
+            window.makeKeyAndVisible()
         }
+        
         return true
     }
 

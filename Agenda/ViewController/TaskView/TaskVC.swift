@@ -37,7 +37,7 @@ class TaskVC: UIViewController {
     }
     
     @objc internal func addPressed () {
-        let addVC = AddViewController()
+        let addVC = AddViewController(repository)
         navigationController?.pushViewController(addVC, animated: true)
     }
 
