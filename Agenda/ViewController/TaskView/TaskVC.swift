@@ -13,19 +13,11 @@ class TaskVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     internal var tasks: [Task]!
     internal var repository: LocalTaskRepository!
-
-    // se llama a este metodo cada vez que se carga la pantalla
-    // en este caso para cargar los nuevos TASK en la lista
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        tasks = repository.getAll()
-        tableView.reloadData()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        repository = LocalTaskRepository()
-        tasks = repository.getAll()
+        self.repository = LocalTaskRepository()
+        self.tasks = self.repository.getAll()
         
         title = "TASKS"
     
@@ -36,9 +28,27 @@ class TaskVC: UIViewController {
         navigationItem.rightBarButtonItem = addBarButtonItem
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIView.animate(withDuration: 0.8){
+            self.view.backgroundColor =
+            UIColor.white.withAlphaComponent(0.8)
+        }
+    }
+    
     @objc internal func addPressed () {
         let addVC = AddViewController(repository)
-        navigationController?.pushViewController(addVC, animated: true)
+        addVC.delegate = self
+        addVC.modalTransitionStyle = .coverVertical
+        addVC.modalPresentationStyle = .overCurrentContext
+       
+        // animacion de transicion
+        UIView.animate(withDuration: 0.4, animations: {
+            self.view.backgroundColor =
+                UIColor.white.withAlphaComponent(0.0)
+        })
+         present(addVC, animated: true, completion: nil)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -85,6 +95,16 @@ extension TaskVC : UITableViewDataSource, UITableViewDelegate {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
                 tableView.endUpdates()
             }
+        }
+    }
+}
+
+extension TaskVC: AddViewControllerDelegate {
+    func addViewController(_ vc:AddViewController, didEditTask task: Task) {
+        vc.dismiss(animated: true) {
+            self.repository = LocalTaskRepository()
+            self.tasks = self.repository.getAll()
+            self.tableView.reloadData()
         }
     }
 }

@@ -21,9 +21,8 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="B2C-AA-i0Z">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="B2C-AA-i0Z">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="QV2-ol-GFb"/>
@@ -32,6 +31,12 @@
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="B2C-AA-i0Z" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7XJ-bF-mei"/>
+                <constraint firstItem="B2C-AA-i0Z" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="SMK-s3-Skh"/>
+                <constraint firstAttribute="trailing" secondItem="B2C-AA-i0Z" secondAttribute="trailing" id="p56-rE-x5r"/>
+                <constraint firstItem="B2C-AA-i0Z" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="wKI-0Y-pec"/>
+            </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="24.5" y="51.5"/>
         </view>
