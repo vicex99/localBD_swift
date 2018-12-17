@@ -32,10 +32,10 @@ class AddViewController: UIViewController {
         task.id  = UUID().uuidString
         task.toDo = txtNew.text!
         task.isDone = false
-        repository.create(a: task)
+        
         // volver a atrás
-//        if  {
+        if repository.create(a: task) {
             navigationController?.popViewController(animated: true)
-//        }
+        }
      }
 }

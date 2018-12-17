@@ -30,15 +30,24 @@ class LocalTaskRepository: Repository{
     }
     
     func get(identifier:String) -> Task?{
+                do {
+                    let realm = try! Realm()
+                    if let entity = realm.objects(TaskEntity.self).filter("id == %@",identifier).first {
+                        let model = entity.taskModel()
+                        return model
+                    }
+        
+                }
         return nil
     }
     
-    func create(a: Task) -> Bool{
+    func create(a: Task) -> Bool {
         do {
             let realm = try! Realm()
             let entity = TaskEntity(id: a.id, toDo: a.toDo, isDone: a.isDone)
             
             try realm.write {
+                // El metodo update: true indica que si encuentra uno igual lo replaza
                 realm.add(entity, update: true)
             }
             
@@ -48,8 +57,23 @@ class LocalTaskRepository: Repository{
         return true
     }
     
-    func delete(a:Task) ->Bool{
-        return false
+    func delete(a:Task) ->Bool {
+        do{
+            let realm = try Realm()
+            try realm.write {
+                let entryToDelete = realm.objects(TaskEntity.self).filter("id == %@", a.id)
+                realm.delete(entryToDelete)
+            }
+        }
+        catch {
+            return false
+        }
+        
+        return true
+    }
+    
+    func update(a: Task) -> Bool {
+        return create(a: a)
     }
     
 }

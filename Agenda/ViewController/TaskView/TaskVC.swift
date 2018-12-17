@@ -76,4 +76,15 @@ extension TaskVC : UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
+    internal func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle , forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let taskToDelete = tasks[indexPath.row]
+            if repository.delete(a: taskToDelete){
+                tasks.remove(at: indexPath.row)
+                tableView.beginUpdates()
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                tableView.endUpdates()
+            }
+        }
+    }
 }
